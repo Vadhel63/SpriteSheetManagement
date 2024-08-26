@@ -1,0 +1,57 @@
+{% extends 'base.html'%} 
+
+{% block title %} Animate {% endblock %} 
+
+{% block body%}
+
+<h2 class="text-center my-4">{{ spritesheet.name }}</h2>
+<div class="container" >
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card my-4 p-4 shadow rounded text-center" style="background-color:beige;">
+                <div class="card-body">
+                   <canvas id="canvas" width="{{ spritesheet.spriteWidth }}" height="{{ spritesheet.spriteHeight }}"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body%}
+
+{% block script %}
+<script>
+    var spritesheet = "{{spritesheet | safe }}";
+    spritesheet = spritesheet.replace(/'/g, '"');
+    spritesheet = JSON.parse(spritesheet);
+
+    // Create a new image element
+    var image = new Image();
+    // Set the image source to the Base64-encoded image data
+    image.src = "data:image/png;base64," + spritesheet['imageData']
+    // Wait for the image to load
+    image.onload = function () {
+        // Get the canvas element
+        var canvas = document.getElementById("canvas");
+        // Get the canvas context
+        var ctx = canvas.getContext("2d");
+        // Draw the image onto the canvas
+        var currentFrame = 0;
+        setInterval(drawFrame, 120);
+
+        function drawFrame()
+        {
+            var quad = spritesheet.quads[currentFrame];
+
+            currentFrame++;
+            if(currentFrame >= spritesheet.quads.length)
+            {
+                currentFrame = 0;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, quad.x, quad.y, quad.width, quad.height, 0, 0, canvas.width, canvas.height);
+        }
+    }
+
+</script>
+{% endblock %}

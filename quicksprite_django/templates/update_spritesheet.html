@@ -1,0 +1,48 @@
+{% extends 'base.html'%} 
+
+{% block title %} Update Spritesheet {% endblock %} 
+
+{% block body%}
+
+<div class="container" >
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
+            <div class="card my-4 p-4 shadow rounded bg-light">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Update Spritesheet</h2>
+                    <form method="POST" class="container" enctype="multipart/form-data">
+                        <div class="row row-cols-1 m-4">
+                            {% csrf_token %}
+                            <div class="my-1">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" id="name" value="{{ spritesheet.name }}">
+                            </div>
+                            <div class="my-1">
+                                <label for="spritesheet" class="form-label">Spritesheet</label>
+                                <input type="file" class="form-control" name="spritesheet" id="spritesheet">
+                            </div>
+                            <div class="my-1">
+                                <label for="spriteWidth" class="form-label">Sprite Width</label>
+                                <input type="number" class="form-control" name="spriteWidth" id="spriteWidth" value="{{ spritesheet.spriteWidth }}">
+                            </div>
+                            <div class="my-1">
+                                <label for="spriteHeight" class="form-label">Sprite Height</label>
+                                <input type="number" class="form-control" name="spriteHeight" id="spriteHeight" value="{{ spritesheet.spriteHeight }}">
+                            </div>
+                            <div class="my-1">
+                                <label for="project" class="form-label">Project</label>
+                                <select class="form-select" name="project" id="project_id">
+                                    {% for project in projects %}
+                                    <option value="{{ project.id }}">{{project.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body%}

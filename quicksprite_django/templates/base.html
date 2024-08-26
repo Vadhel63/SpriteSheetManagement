@@ -1,0 +1,20 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+    {% block style %} {% endblock %}
+</head>
+<body class="bg-light">
+    {% block body %} {% endblock %}
+</body>
+{% block script %}{% endblock %}
+</html>

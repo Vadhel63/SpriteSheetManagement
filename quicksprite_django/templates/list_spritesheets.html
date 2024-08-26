@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Spritesheets
+{% endblock %}
+
+{% block style %}
+<style>
+    .fixed-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        font-size: 50px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<h2 class="text-center my-4">{{ project.name }}</h2>
+<a href="{% url 'sprites:updateProject' project.id %}" class="btn btn-primary" style="width: 100%;">Update Project</a>
+<a href="{% url 'sprites:deleteProject' project.id %}" class="btn btn-danger" style="width: 100%;">Delete Project</a>
+<h3 class="text-center my-4">All Spritesheets</h2>
+<div class="container">
+    <div class="row">
+
+        {% for spritesheet in spritesheets %}
+        <div class="col-12">
+            <div id='{{ Spritesheet.id }}'  class="card card-preview shadow-lg bg-light my-3 border-dark border-3">
+                <img src="data:image/png;base64,{{ spritesheet.imageData }}" class="card-image-top" alt="blog_image">
+                <div class="card-header">
+                    <h5>Name : {{spritesheet.name}}</h5>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'sprites:animate' spritesheet.id %}" class="btn btn-success">Animate</a>
+                    <a href="{% url 'sprites:updateSpritesheet' spritesheet.id %}" class="btn btn-info">Update</a>
+                    <a href="{% url 'sprites:deleteSpritesheet' spritesheet.id %}" class="btn btn-danger">Delete</a>
+                </div>
+        </div>
+        {% empty %}
+        <h3 class="col-3 text-center">No Spritesheets uploaded</h3>
+        {% endfor %}
+    </div>
+  </div>
+  <a href="{% url 'sprites:newSpritesheet' %}" class="btn btn-primary btn-circle fixed-button">
+    +
+  </a>
+{% endblock %}

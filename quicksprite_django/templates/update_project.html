@@ -1,0 +1,26 @@
+{% extends 'base.html'%} 
+
+{% block title %} Update Project {% endblock %} 
+
+{% block body%}
+
+<div class="container" >
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
+            <div class="card my-4 p-4 shadow rounded" style="background-color:beige;">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Update Project</h2>
+                    <form method="POST" class="container">
+                        <div class="row row-cols-1 m-4">
+                            {% csrf_token %}
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name" id="name" value="{{ project.name }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body%}
